@@ -1,0 +1,25 @@
+:root{
+    --decoderWidth: 50%;
+    --decoderHeight: 70%;
+    --qrResWidth: 200px;
+    --qrResHeight: 200px;
+}
+
+#decoder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    width: var(--decoderWidth);
+    height: var(--decoderHeight);
+
+    background-color: var(--bg-02);
+}
+
+#decoder #qr-result {
+    width: var(--qrResWidth);
+    height: var(--qrResHeight);
+    background-color: var(--bg-01);
+}
