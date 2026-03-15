@@ -1,8 +1,8 @@
 export function initDecoder(root) {
 
-    const fileInput = root.querySelector("#qr-file");
-    const result = root.querySelector("#qr-result");
-    const canvas = root.querySelector("#qr-canvas");
+    const fileInput = root.querySelector("#decoder-file");
+    const result = root.querySelector("#decoder-result");
+    const canvas = root.querySelector("#decoder-canvas");
     const ctx = canvas.getContext("2d");
 
     fileInput.addEventListener("change", async (event) => {

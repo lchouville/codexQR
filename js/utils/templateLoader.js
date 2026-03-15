@@ -24,3 +24,22 @@ function loadCSS(cssPath) {
     link.href = cssPath;
     document.head.appendChild(link);
 }
+
+export async function getAllTemplates() {
+    // search .tmpl files names in assets/layouts
+    const path = 'assets/layouts/';
+    const response = await fetch(path);
+    const html = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const links = doc.querySelectorAll('a');
+    const templates = [];
+    links.forEach(link => {
+        const href = link.getAttribute('href');
+
+        if (href.endsWith('.tmpl')) {
+            templates.push(href.substring(path.length+1).replace('.tmpl', ''));
+        }
+    });
+    return templates;    
+}
