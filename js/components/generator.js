@@ -7,7 +7,7 @@ export async function initGenerator(root) {
     const div =  root.querySelector("#generator-type");
     // load generator types from assets/components/generator
     const path = "assets/components/generator/";
-    fetch(path)
+    fetch(`./${path}`)
         .then(response => response.text())
         .then(html => {
             const parser = new DOMParser();
@@ -34,7 +34,7 @@ export async function initGenerator(root) {
             });
         });
     // default load URL generator
-    const response = await fetch("assets/components/generator/url.tmpl");
+    const response = await fetch("./assets/components/generator/url.tmpl");
     if (!response.ok) {
         throw new Error("Failed to load template");
     }
