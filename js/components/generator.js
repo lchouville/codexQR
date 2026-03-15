@@ -6,31 +6,24 @@ export async function initGenerator(root) {
     // load navigation for generator
     const div =  root.querySelector("#generator-type");
     // load generator types from assets/components/generator
-    const path = "assets/components/generator/";
+    const path = "assets/components/generator/generator.json";
     fetch(`./${path}`)
-        .then(response => response.text())
-        .then(html => {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(html, "text/html");
-            const links = doc.querySelectorAll("a");
-            links.forEach(link => {
-                const href = link.getAttribute("href");
-                if (href.endsWith(".tmpl")) {
-                    const type = href.substring(path.length+1).replace(".tmpl", "");
-                    const btn = document.createElement("button");
-                    btn.textContent = type.toUpperCase();
-                    div.appendChild(btn);
-                    btn.addEventListener("click", async () => {
-                        const formDiv = root.querySelector("#generator-form");
-                        formDiv.innerHTML = "";
-                        const response = await fetch(href);
-                        if (!response.ok) {
-                            throw new Error("Failed to load template");
-                        }
-                        const html = await response.text();
-                        formDiv.innerHTML = html;
-                    });
-                }
+        .then(response => response.json())
+        .then(types => {
+            types.forEach(type => {
+                const btn = document.createElement("button");
+                btn.textContent = type.toUpperCase();
+                div.appendChild(btn);
+                btn.addEventListener("click", async () => {
+                    const formDiv = root.querySelector("#generator-form");
+                    formDiv.innerHTML = "";
+                    const response = await fetch(`./assets/components/generator/${type}.tmpl`);
+                    if (!response.ok) {
+                        throw new Error("Failed to load template");
+                    }
+                    const html = await response.text();
+                    formDiv.innerHTML = html;
+                });
             });
         });
     // default load URL generator
