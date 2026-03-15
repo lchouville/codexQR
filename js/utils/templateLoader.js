@@ -28,7 +28,7 @@ function loadCSS(cssPath) {
 export async function getAllTemplates() {
     // search .tmpl files names in assets/layouts
     const path = 'assets/layouts/';
-    const response = await fetch(path);
+    const response = await fetch(`./${path}`);
     const html = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
